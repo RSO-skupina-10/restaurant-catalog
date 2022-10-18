@@ -1,0 +1,1 @@
+--INSERT INTO restaurant (name, address) VALUES ('Abc', 'Def');

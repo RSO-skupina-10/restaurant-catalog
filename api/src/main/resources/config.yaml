@@ -1,0 +1,10 @@
+kumuluzee:
+  name: restaurant-catalog
+  version: 1.0.0
+  env:
+    name: dev
+    datasources:
+      - jndi-name: jdbc/RestaurantCatalogDS
+        connection-url: jdbc:postgresql://localhost:5432/restaurantcatalog
+        username: postgres
+        password: postgres
