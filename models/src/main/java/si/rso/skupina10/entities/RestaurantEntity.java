@@ -20,7 +20,7 @@ public class RestaurantEntity {
 
     @JsonbTransient
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
-    private List<Meal> listOfMeals;
+    private List<MealEntity> listOfMeals;
 
 
     public Integer getRestaurant_id() {
@@ -39,11 +39,11 @@ public class RestaurantEntity {
         this.name = name;
     }
 
-    public List<Meal> getListOfMeals() {
+    public List<MealEntity> getListOfMeals() {
         return listOfMeals;
     }
 
-    public void setListOfMeals(List<Meal> listOfMeals) {
+    public void setListOfMeals(List<MealEntity> listOfMeals) {
         this.listOfMeals = listOfMeals;
     }
 }

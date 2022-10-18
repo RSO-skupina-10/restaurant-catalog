@@ -6,7 +6,7 @@ import javax.persistence.*;
 @NamedQueries(value={
         @NamedQuery(name = "Meal.getAll", query = "SELECT m FROM meal m")
 })
-public class Meal {
+public class MealEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
