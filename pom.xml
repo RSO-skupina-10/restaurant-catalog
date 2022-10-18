@@ -8,10 +8,64 @@
     <artifactId>restaurant-catalog</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>api</module>
+        <module>services</module>
+        <module>models</module>
+    </modules>
+
+    <name>Restaurant catalog</name>
+    <description>Aplication that provides customers and delivery persons with restaurants' data.</description>
+
     <properties>
         <maven.compiler.source>14</maven.compiler.source>
         <maven.compiler.target>14</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <kumuluzee.version>4.1.0</kumuluzee.version>
+        <postgresql.version>42.5.0</postgresql.version>
+        <kumuluzee-rest.version>1.5.1</kumuluzee-rest.version>
     </properties>
+
+    <!--configuration of external dependencies-->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.kumuluz.ee</groupId>
+                <artifactId>kumuluzee-bom</artifactId>
+                <version>${kumuluzee.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>si.rso.skupina-10</groupId>
+                <artifactId>api</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>si.rso.skupina-10</groupId>
+                <artifactId>services</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>si.rso.skupina-10</groupId>
+                <artifactId>models</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kumuluz.ee.rest</groupId>
+                <artifactId>kumuluzee-rest-core</artifactId>
+                <version>${kumuluzee-rest.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
