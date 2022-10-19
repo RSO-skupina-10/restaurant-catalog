@@ -7,13 +7,13 @@ import javax.json.bind.annotation.JsonbTransient;
 
 @Entity(name = "restaurant")
 @NamedQueries(value = {
-        @NamedQuery(name = "Restaurant.getAll", query = "SELECT r FROM restaurant r")
+        @NamedQuery(name = "Restaurant.getAll", query = "SELECT r FROM restaurant r"),
+        @NamedQuery(name="Restaurant.getRestaurantById", query = "SELECT r FROM restaurant r WHERE r.restaurant_id = :restaurant_id"),
 })
 public class RestaurantEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Integer restaurant_id;
 
     private String name;

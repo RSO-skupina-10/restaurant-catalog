@@ -4,7 +4,9 @@ import javax.persistence.*;
 
 @Entity(name="meal")
 @NamedQueries(value={
-        @NamedQuery(name = "Meal.getAll", query = "SELECT m FROM meal m")
+        @NamedQuery(name = "Meal.getAll", query = "SELECT m FROM meal m"),
+        @NamedQuery(name="Meal.getMealById", query = "SELECT m FROM meal m WHERE m.meal_id = :meal_id"),
+        @NamedQuery(name = "Meal.getMealsOfRestaurant", query = "SELECT m FROM meal m WHERE m.restaurant = :restaurant")
 })
 public class MealEntity {
 
