@@ -24,6 +24,10 @@
             <groupId>si.rso.skupina10</groupId>
             <artifactId>models</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.kumuluz.ee.rest</groupId>
+            <artifactId>kumuluzee-rest-core</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

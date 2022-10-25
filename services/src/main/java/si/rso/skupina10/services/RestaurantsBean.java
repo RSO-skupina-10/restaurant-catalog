@@ -1,5 +1,7 @@
 package si.rso.skupina10.services;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
 import si.rso.skupina10.converters.RestaurantConverter;
 import si.rso.skupina10.dtos.RestaurantDto;
 import si.rso.skupina10.entities.RestaurantEntity;
@@ -11,6 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
+import javax.ws.rs.core.UriInfo;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -45,6 +48,14 @@ public class RestaurantsBean {
             log.severe("Error at getRestaurants: " + e);
             return null;
         }
+    }
+
+    public List<RestaurantDto> getRestaurants(UriInfo uriInfo){
+        QueryParameters queryParameters = QueryParameters.query(uriInfo.getRequestUri().getQuery()).defaultOffset(0)
+                .build();
+
+        return JPAUtils.queryEntities(em, RestaurantEntity.class, queryParameters).stream()
+                .map(RestaurantConverter::toDto).collect(Collectors.toList());
     }
 
     public RestaurantDto getRestaurant(Integer restaurantId) {
