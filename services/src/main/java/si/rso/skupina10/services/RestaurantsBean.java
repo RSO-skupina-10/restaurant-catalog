@@ -39,7 +39,7 @@ public class RestaurantsBean {
     public List<RestaurantDto> getRestaurants() {
         try {
             Query q = em.createNamedQuery("Restaurant.getAll");
-            List<RestaurantEntity> resultList = q.getResultList();
+            List<RestaurantEntity> resultList = (List<RestaurantEntity>) q.getResultList();
             return resultList.stream().map(RestaurantConverter::toDto).collect(Collectors.toList());
         } catch (Exception e) {
             log.severe("Error at getRestaurants: " + e);
@@ -47,11 +47,11 @@ public class RestaurantsBean {
         }
     }
 
-    public RestaurantEntity getRestaurant(Integer restaurantId) {
+    public RestaurantDto getRestaurant(Integer restaurantId) {
         try {
             Query q = em.createNamedQuery("Restaurant.getRestaurantById");
             q.setParameter("restaurantId", restaurantId);
-            return (RestaurantEntity) q.getSingleResult();
+            return RestaurantConverter.toDto((RestaurantEntity) q.getSingleResult());
         } catch (Exception e) {
             log.severe("Error at getRestaurant by id: " + e);
             return null;
@@ -60,17 +60,18 @@ public class RestaurantsBean {
 
 
     @Transactional
-    public RestaurantEntity addRestaurant(RestaurantEntity r) {
+    public RestaurantDto addRestaurant(RestaurantDto r) {
         try {
             String name = r.getName();
             if (name.isBlank()) {
                 log.info("Cannot add restaurant without a name.");
                 return null;
             }
-            em.persist(r);
+            RestaurantEntity entity = RestaurantConverter.toEntity(r);
+            em.persist(entity);
             em.flush();
             log.info("Restaurant " + name + " was added.");
-            return r;
+            return RestaurantConverter.toDto(entity);
         } catch (Exception e) {
             log.severe("Error at addRestaurant: " + e);
             return null;
@@ -79,7 +80,7 @@ public class RestaurantsBean {
 
     @Transactional
     public boolean removeRestaurant(Integer restaurantId) {
-        RestaurantEntity restaurant = getRestaurant(restaurantId);
+        RestaurantEntity restaurant = em.find(RestaurantEntity.class, restaurantId);
 
         if (restaurant != null) {
             //TODO see if we need to remove its meals (cascade = CascadeType.ALL)

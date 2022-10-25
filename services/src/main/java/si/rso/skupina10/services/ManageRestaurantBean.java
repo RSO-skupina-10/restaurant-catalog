@@ -1,6 +1,9 @@
 package si.rso.skupina10.services;
 
+import si.rso.skupina10.converters.MealConverter;
+import si.rso.skupina10.converters.RestaurantConverter;
 import si.rso.skupina10.dtos.MealDto;
+import si.rso.skupina10.dtos.RestaurantDto;
 import si.rso.skupina10.entities.MealEntity;
 import si.rso.skupina10.entities.RestaurantEntity;
 
@@ -33,16 +36,17 @@ public class ManageRestaurantBean {
     }
 
     @Transactional
-    public MealEntity createMeal(MealDto mealDto){
+    public MealDto createMeal(MealDto mealDto){
         MealEntity meal = new MealEntity();
         meal.setIngredients(mealDto.getIngredients());
         meal.setName(mealDto.getName());
         meal.setPrice(meal.getPrice());
 
-        RestaurantEntity restaurant = restaurantsBean.getRestaurant(mealDto.getRestaurantId());
-        meal.setRestaurant(restaurant);
+        RestaurantDto restaurant = restaurantsBean.getRestaurant(mealDto.getRestaurantId());
+        RestaurantEntity r = RestaurantConverter.toEntity(restaurant);
+        r.setRestaurantId(mealDto.getRestaurantId());
+        meal.setRestaurant(r);
 
-        MealEntity addedMeal = mealBean.addMeal(meal);
-        return addedMeal;
+        return mealBean.addMeal(MealConverter.toDto(meal));
     }
 }

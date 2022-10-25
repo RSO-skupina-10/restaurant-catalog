@@ -1,23 +1,31 @@
 package si.rso.skupina10.services;
 
+import si.rso.skupina10.converters.MealConverter;
+import si.rso.skupina10.dtos.MealDto;
+import si.rso.skupina10.dtos.RestaurantDto;
 import si.rso.skupina10.entities.MealEntity;
 import si.rso.skupina10.entities.RestaurantEntity;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class MealBean {
 
     @PersistenceContext(unitName = "restaurant-catalog-jpa")
     private EntityManager em;
+
+    @Inject
+    private RestaurantsBean restaurantsBean;
 
     private static final Logger log = Logger.getLogger(MealBean.class.getName());
 
@@ -31,21 +39,22 @@ public class MealBean {
         log.info("Destroy " + MealBean.class.getSimpleName());
     }
 
-    public List<MealEntity> getMeals() {
+    public List<MealDto> getMeals() {
         try {
             Query q = em.createNamedQuery("Meal.getAll");
-            return (List<MealEntity>) q.getResultList();
+            List<MealEntity> resultList = (List<MealEntity>) q.getResultList();
+            return resultList.stream().map(MealConverter::toDto).collect(Collectors.toList());
         } catch (Exception e) {
             log.severe("Error at getMeals: " + e);
             return null;
         }
     }
 
-    public MealEntity getMeal(Integer mealId) {
+    public MealDto getMeal(Integer mealId) {
         try {
             Query q = em.createNamedQuery("Meal.getMealById");
             q.setParameter("mealId", mealId);
-            return (MealEntity) q.getSingleResult();
+            return MealConverter.toDto((MealEntity) q.getSingleResult());
         } catch (Exception e) {
             log.severe("Error at getMeal by id: " + e);
             return null;
@@ -53,13 +62,14 @@ public class MealBean {
     }
 
     @Transactional
-    public MealEntity addMeal(MealEntity m) {
+    public MealDto addMeal(MealDto m) {
         try {
-            RestaurantEntity r = m.getRestaurant();
+            RestaurantDto r = restaurantsBean.getRestaurant(m.getRestaurantId());
+            MealEntity entity = MealConverter.toEntity(m);
             if(r != null) {
-                em.persist(r);
+                em.persist(entity);
                 em.flush();
-                return m;
+                return MealConverter.toDto(entity);
             } else {
                 log.info("Cannot add meal without a restaurant.");
                 return null;
@@ -68,6 +78,18 @@ public class MealBean {
             log.severe("Error addMeal: " + e);
             return null;
         }
+    }
+
+    @Transactional
+    public boolean removeMeal(Integer mealId) {
+        MealEntity meal = em.find(MealEntity.class, mealId);
+
+        if(meal!=null){
+            em.remove(meal);
+            em.flush();
+            return true;
+        }
+        return false;
     }
 
     @Transactional
