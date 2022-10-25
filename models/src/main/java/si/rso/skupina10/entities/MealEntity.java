@@ -1,34 +1,38 @@
 package si.rso.skupina10.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 
 @Entity(name="meal")
 @NamedQueries(value={
         @NamedQuery(name = "Meal.getAll", query = "SELECT m FROM meal m"),
-        @NamedQuery(name="Meal.getMealById", query = "SELECT m FROM meal m WHERE m.meal_id = :meal_id"),
+        @NamedQuery(name="Meal.getMealById", query = "SELECT m FROM meal m WHERE m.mealId = :mealId"),
         @NamedQuery(name = "Meal.getMealsOfRestaurant", query = "SELECT m FROM meal m WHERE m.restaurant = :restaurant")
 })
 public class MealEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer meal_id;
+    private Integer mealId;
 
     private String name;
 
     private Float price;
 
+    @ElementCollection
+    private ArrayList<String> ingredients;
+
     @ManyToOne
-    @JoinColumn(name = "restaurant_id")
+    @JoinColumn(name = "restaurantId")
     private RestaurantEntity restaurant;
 
 
-    public Integer getMeal_id() {
-        return meal_id;
+    public Integer getMealId() {
+        return mealId;
     }
 
-    public void setMeal_id(Integer meal_id) {
-        this.meal_id = meal_id;
+    public void setMealId(Integer mealId) {
+        this.mealId = mealId;
     }
 
     public String getName() {
@@ -53,5 +57,13 @@ public class MealEntity {
 
     public void setRestaurant(RestaurantEntity restaurant) {
         this.restaurant = restaurant;
+    }
+
+    public ArrayList<String> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(ArrayList<String> ingredients) {
+        this.ingredients = ingredients;
     }
 }

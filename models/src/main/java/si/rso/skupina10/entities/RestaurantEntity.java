@@ -8,27 +8,31 @@ import javax.json.bind.annotation.JsonbTransient;
 @Entity(name = "restaurant")
 @NamedQueries(value = {
         @NamedQuery(name = "Restaurant.getAll", query = "SELECT r FROM restaurant r"),
-        @NamedQuery(name="Restaurant.getRestaurantById", query = "SELECT r FROM restaurant r WHERE r.restaurant_id = :restaurant_id"),
+        @NamedQuery(name="Restaurant.getRestaurantById", query = "SELECT r FROM restaurant r WHERE r.restaurantId = :restaurantId"),
 })
 public class RestaurantEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer restaurant_id;
+    private Integer restaurantId;
 
     private String name;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "operatingHoursId")
+    private OperatingHoursEntity operatingHours;
 
     @JsonbTransient
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
     private List<MealEntity> listOfMeals;
 
 
-    public Integer getRestaurant_id() {
-        return restaurant_id;
+    public Integer getRestaurantId() {
+        return restaurantId;
     }
 
-    public void setRestaurant_id(Integer restaurant_id) {
-        this.restaurant_id = restaurant_id;
+    public void setRestaurantId(Integer restaurantId) {
+        this.restaurantId = restaurantId;
     }
 
     public String getName() {
@@ -45,5 +49,13 @@ public class RestaurantEntity {
 
     public void setListOfMeals(List<MealEntity> listOfMeals) {
         this.listOfMeals = listOfMeals;
+    }
+
+    public OperatingHoursEntity getOperatingHours() {
+        return operatingHours;
+    }
+
+    public void setOperatingHours(OperatingHoursEntity operatingHours) {
+        this.operatingHours = operatingHours;
     }
 }

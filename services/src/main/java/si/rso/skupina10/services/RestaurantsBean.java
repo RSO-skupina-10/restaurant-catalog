@@ -1,8 +1,11 @@
 package si.rso.skupina10.services;
 
-import si.rso.skupina10.entities.MealEntity;
+import si.rso.skupina10.converters.RestaurantConverter;
+import si.rso.skupina10.dtos.RestaurantDto;
 import si.rso.skupina10.entities.RestaurantEntity;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -10,6 +13,7 @@ import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class RestaurantsBean {
@@ -21,21 +25,32 @@ public class RestaurantsBean {
 
     private static final Logger log = Logger.getLogger(RestaurantsBean.class.getName());
 
+    @PostConstruct
+    private void init() {
+        log.info("Initialization of the " + RestaurantsBean.class.getSimpleName());
+    }
 
-    public List<RestaurantEntity> getRestaurants() {
+    @PreDestroy
+    private void destroy() {
+        log.info("Destroy " + RestaurantsBean.class.getSimpleName());
+    }
+
+
+    public List<RestaurantDto> getRestaurants() {
         try {
             Query q = em.createNamedQuery("Restaurant.getAll");
-            return (List<RestaurantEntity>) q.getResultList();
+            List<RestaurantEntity> resultList = q.getResultList();
+            return resultList.stream().map(RestaurantConverter::toDto).collect(Collectors.toList());
         } catch (Exception e) {
             log.severe("Error at getRestaurants: " + e);
             return null;
         }
     }
 
-    public RestaurantEntity getRestaurant(Integer restaurant_id) {
+    public RestaurantEntity getRestaurant(Integer restaurantId) {
         try {
             Query q = em.createNamedQuery("Restaurant.getRestaurantById");
-            q.setParameter("restaurant_id", restaurant_id);
+            q.setParameter("restaurantId", restaurantId);
             return (RestaurantEntity) q.getSingleResult();
         } catch (Exception e) {
             log.severe("Error at getRestaurant by id: " + e);
@@ -63,8 +78,8 @@ public class RestaurantsBean {
     }
 
     @Transactional
-    public boolean removeRestaurant(Integer restaurant_id) {
-        RestaurantEntity restaurant = getRestaurant(restaurant_id);
+    public boolean removeRestaurant(Integer restaurantId) {
+        RestaurantEntity restaurant = getRestaurant(restaurantId);
 
         if (restaurant != null) {
             //TODO see if we need to remove its meals (cascade = CascadeType.ALL)
