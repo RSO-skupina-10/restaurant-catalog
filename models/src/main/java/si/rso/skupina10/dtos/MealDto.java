@@ -1,12 +1,12 @@
 package si.rso.skupina10.dtos;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class MealDto {
 
     private String name;
     private Float price;
-    private ArrayList<String> ingredients;
+    private List<String> ingredients;
     private Integer restaurantId;
 
     public String getName() {
@@ -25,11 +25,11 @@ public class MealDto {
         this.price = price;
     }
 
-    public ArrayList<String> getIngredients() {
+    public List<String> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(ArrayList<String> ingredients) {
+    public void setIngredients(List<String> ingredients) {
         this.ingredients = ingredients;
     }
 

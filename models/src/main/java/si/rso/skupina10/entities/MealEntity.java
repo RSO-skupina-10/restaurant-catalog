@@ -1,7 +1,7 @@
 package si.rso.skupina10.entities;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name="meal")
 @NamedQueries(value={
@@ -20,7 +20,7 @@ public class MealEntity {
     private Float price;
 
     @ElementCollection
-    private ArrayList<String> ingredients;
+    private List<String> ingredients;
 
     @ManyToOne
     @JoinColumn(name = "restaurantId")
@@ -59,11 +59,11 @@ public class MealEntity {
         this.restaurant = restaurant;
     }
 
-    public ArrayList<String> getIngredients() {
+    public List<String> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(ArrayList<String> ingredients) {
+    public void setIngredients(List<String> ingredients) {
         this.ingredients = ingredients;
     }
 }

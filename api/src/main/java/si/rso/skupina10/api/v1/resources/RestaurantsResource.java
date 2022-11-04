@@ -1,9 +1,7 @@
 package si.rso.skupina10.api.v1.resources;
 
-import com.kumuluz.ee.rest.beans.QueryParameters;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
-import org.eclipse.microprofile.openapi.annotations.headers.Header;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
@@ -28,7 +26,7 @@ import java.util.logging.Logger;
 @ApplicationScoped
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@Path("restaurants")
+@Path("/restaurants")
 public class RestaurantsResource {
 
     private Logger log = Logger.getLogger(RestaurantsResource.class.getName());
