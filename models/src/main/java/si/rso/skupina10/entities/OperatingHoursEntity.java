@@ -1,148 +1,155 @@
 package si.rso.skupina10.entities;
 
 import javax.persistence.*;
-import java.sql.Time;
+import java.time.LocalTime;
 
-@Entity(name="operatingHours")
+@Entity(name = "operatingHours")
 public class OperatingHoursEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer operatingHoursId;
 
-    private Time mondayStart;
-    private Time mondayEnd;
+    private LocalTime mondayStart;
+    private LocalTime mondayEnd;
 
-    private Time tuesdayStart;
-    private Time tuesdayEnd;
+    private LocalTime tuesdayStart;
 
-    private Time wednesdayStart;
-    private Time wednesdayEnd;
+    private LocalTime tuesdayEnd;
 
-    private Time thursdayStart;
-    private Time thursdayEnd;
+    private LocalTime wednesdayStart;
 
-    private Time fridayStart;
-    private Time fridayEnd;
+    private LocalTime wednesdayEnd;
 
-    private Time saturdayStart;
-    private Time saturdayEnd;
+    private LocalTime thursdayStart;
 
-    private Time sundayStart;
-    private Time sundayEnd;
+    private LocalTime thursdayEnd;
+
+
+    private LocalTime fridayStart;
+
+    private LocalTime fridayEnd;
+
+    private LocalTime saturdayStart;
+
+    private LocalTime saturdayEnd;
+
+    private LocalTime sundayStart;
+
+    private LocalTime sundayEnd;
 
     @OneToOne(mappedBy = "operatingHours")
     private RestaurantEntity restaurant;
 
-    public Time getMondayStart() {
+    public LocalTime getMondayStart() {
         return mondayStart;
     }
 
-    public void setMondayStart(Time mondayStart) {
+    public void setMondayStart(LocalTime mondayStart) {
         this.mondayStart = mondayStart;
     }
 
-    public Time getMondayEnd() {
+    public LocalTime getMondayEnd() {
         return mondayEnd;
     }
 
-    public void setMondayEnd(Time mondayEnd) {
+    public void setMondayEnd(LocalTime mondayEnd) {
         this.mondayEnd = mondayEnd;
     }
 
-    public Time getTuesdayStart() {
+    public LocalTime getTuesdayStart() {
         return tuesdayStart;
     }
 
-    public void setTuesdayStart(Time tuesdayStart) {
+    public void setTuesdayStart(LocalTime tuesdayStart) {
         this.tuesdayStart = tuesdayStart;
     }
 
-    public Time getTuesdayEnd() {
+    public LocalTime getTuesdayEnd() {
         return tuesdayEnd;
     }
 
-    public void setTuesdayEnd(Time tuesdayEnd) {
+    public void setTuesdayEnd(LocalTime tuesdayEnd) {
         this.tuesdayEnd = tuesdayEnd;
     }
 
-    public Time getWednesdayStart() {
+    public LocalTime getWednesdayStart() {
         return wednesdayStart;
     }
 
-    public void setWednesdayStart(Time wednesdayStart) {
+    public void setWednesdayStart(LocalTime wednesdayStart) {
         this.wednesdayStart = wednesdayStart;
     }
 
-    public Time getWednesdayEnd() {
+    public LocalTime getWednesdayEnd() {
         return wednesdayEnd;
     }
 
-    public void setWednesdayEnd(Time wednesdayEnd) {
+    public void setWednesdayEnd(LocalTime wednesdayEnd) {
         this.wednesdayEnd = wednesdayEnd;
     }
 
-    public Time getThursdayStart() {
+    public LocalTime getThursdayStart() {
         return thursdayStart;
     }
 
-    public void setThursdayStart(Time thursdayStart) {
+    public void setThursdayStart(LocalTime thursdayStart) {
         this.thursdayStart = thursdayStart;
     }
 
-    public Time getThursdayEnd() {
+    public LocalTime getThursdayEnd() {
         return thursdayEnd;
     }
 
-    public void setThursdayEnd(Time thursdayEnd) {
+    public void setThursdayEnd(LocalTime thursdayEnd) {
         this.thursdayEnd = thursdayEnd;
     }
 
-    public Time getFridayStart() {
+    public LocalTime getFridayStart() {
         return fridayStart;
     }
 
-    public void setFridayStart(Time fridayStart) {
+    public void setFridayStart(LocalTime fridayStart) {
         this.fridayStart = fridayStart;
     }
 
-    public Time getFridayEnd() {
+    public LocalTime getFridayEnd() {
         return fridayEnd;
     }
 
-    public void setFridayEnd(Time fridayEnd) {
+    public void setFridayEnd(LocalTime fridayEnd) {
         this.fridayEnd = fridayEnd;
     }
 
-    public Time getSaturdayStart() {
+    public LocalTime getSaturdayStart() {
         return saturdayStart;
     }
 
-    public void setSaturdayStart(Time saturdayStart) {
+    public void setSaturdayStart(LocalTime saturdayStart) {
         this.saturdayStart = saturdayStart;
     }
 
-    public Time getSaturdayEnd() {
+    public LocalTime getSaturdayEnd() {
         return saturdayEnd;
     }
 
-    public void setSaturdayEnd(Time saturdayEnd) {
+    public void setSaturdayEnd(LocalTime saturdayEnd) {
         this.saturdayEnd = saturdayEnd;
     }
 
-    public Time getSundayStart() {
+    public LocalTime getSundayStart() {
         return sundayStart;
     }
 
-    public void setSundayStart(Time sundayStart) {
+    public void setSundayStart(LocalTime sundayStart) {
         this.sundayStart = sundayStart;
     }
 
-    public Time getSundayEnd() {
+    public LocalTime getSundayEnd() {
         return sundayEnd;
     }
 
-    public void setSundayEnd(Time sundayEnd) {
+    public void setSundayEnd(LocalTime sundayEnd) {
         this.sundayEnd = sundayEnd;
     }
 

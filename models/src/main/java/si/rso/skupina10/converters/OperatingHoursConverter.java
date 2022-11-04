@@ -1,13 +1,16 @@
 package si.rso.skupina10.converters;
 
 import si.rso.skupina10.dtos.OperatingHoursDto;
+import si.rso.skupina10.dtos.RestaurantDto;
 import si.rso.skupina10.entities.OperatingHoursEntity;
+import si.rso.skupina10.entities.RestaurantEntity;
 
 public class OperatingHoursConverter {
 
     public static OperatingHoursDto toDto(OperatingHoursEntity entity) {
         OperatingHoursDto dto = new OperatingHoursDto();
-        dto.setRestaurantDto(RestaurantConverter.toDto(entity.getRestaurant()));
+        //stack overflow
+        //dto.setRestaurantDto(RestaurantConverter.toDto(entity.getRestaurant()));
 
         dto.setMondayStart(entity.getMondayStart());
         dto.setMondayEnd(entity.getMondayEnd());
@@ -30,12 +33,19 @@ public class OperatingHoursConverter {
         dto.setSundayStart(entity.getSundayStart());
         dto.setSundayEnd(entity.getSundayEnd());
 
+        dto.setRestaurantId(entity.getRestaurant().getRestaurantId());
+
         return dto;
     }
 
     public static OperatingHoursEntity toEntity(OperatingHoursDto dto) {
         OperatingHoursEntity entity = new OperatingHoursEntity();
-        entity.setRestaurant(RestaurantConverter.toEntity(dto.getRestaurantDto()));
+        RestaurantEntity restaurantEntity = new RestaurantEntity();
+        restaurantEntity.setRestaurantId(dto.getRestaurantId());
+
+        entity.setRestaurant(restaurantEntity);
+
+        //entity.setRestaurant(RestaurantConverter.toEntity(dto.getRestaurantDto()));
 
         entity.setMondayStart(dto.getMondayStart());
         entity.setMondayEnd(dto.getMondayEnd());

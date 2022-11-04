@@ -20,6 +20,11 @@ public class MealEntity {
     private Float price;
 
     @ElementCollection
+    @CollectionTable(
+            name = "ingredients",
+            joinColumns = @JoinColumn(name = "mealId")
+    )
+    @Column(name="ingredients")
     private List<String> ingredients;
 
     @ManyToOne
