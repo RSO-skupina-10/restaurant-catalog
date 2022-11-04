@@ -5,3 +5,8 @@ docker run -d --name postgres-jdbc -e POSTGRES_PASSWORD=postgres -e POSTGRES_USE
 mvn clean package
 
 java -jar api/target/api-1.0-SNAPSHOT.jar
+
+
+try:
+- http://localhost:8080/servlet
+- http://localhost:8080/v1/restaurants
