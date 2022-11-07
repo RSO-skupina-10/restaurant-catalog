@@ -4,6 +4,7 @@ import si.rso.skupina10.converters.MealConverter;
 import si.rso.skupina10.dtos.MealDto;
 import si.rso.skupina10.dtos.RestaurantDto;
 import si.rso.skupina10.entities.MealEntity;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
@@ -55,6 +56,17 @@ public class MealBean {
             return MealConverter.toDto((MealEntity) q.getSingleResult());
         } catch (Exception e) {
             log.severe("Error at getMeal by id: " + e);
+            return null;
+        }
+    }
+
+    public List<MealDto> getRestaurantMeals(Integer restaurantId) {
+        try {
+            Query q = em.createNamedQuery("Meal.getMealsOfRestaurant");
+            q.setParameter("restaurantId", restaurantId);
+            return (List<MealDto>) q.getResultList();
+        } catch (Exception e) {
+            log.severe("Error getting restaurant's meals.");
             return null;
         }
     }

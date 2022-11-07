@@ -7,7 +7,7 @@ import java.util.List;
 @NamedQueries(value={
         @NamedQuery(name = "Meal.getAll", query = "SELECT m FROM meal m"),
         @NamedQuery(name="Meal.getMealById", query = "SELECT m FROM meal m WHERE m.mealId = :mealId"),
-        @NamedQuery(name = "Meal.getMealsOfRestaurant", query = "SELECT m FROM meal m WHERE m.restaurant = :restaurant")
+        @NamedQuery(name = "Meal.getMealsOfRestaurant", query = "SELECT m FROM meal m WHERE m.restaurant.restaurantId = :restaurantId")
 })
 public class MealEntity {
 
