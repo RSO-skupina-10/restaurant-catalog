@@ -16,14 +16,16 @@
 - `docker build -t rso-restaurant-catalog .`
 - `docker network create rso`
 - `docker run -d --name postgres-jdbc -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postgres -e POSTGRES_DB=restaurantcatalog -p 5432:5432 --network rso postgres:13`
-- `docker run -p 8080:8080 --network rso -e KUMULUZEE_DATASOURCES0_CONNECTIONURL=jdbc:postgresql://postgres-jdbc:5432/restaurantcatalog rso-restaurant-catalog`
+- `docker run -p 8080:8080 --network rso --name restaurant-catalog -e KUMULUZEE_DATASOURCES0_CONNECTIONURL=jdbc:postgresql://postgres-jdbc:5432/restaurantcatalog rso-restaurant-catalog`
 
 
 ### to stop docker:
+- `docker stop restaurant-catalog`
 - `docker stop postgres-jdbc`
 
 ### to start docker again:
 - `docker start postgres-jdbc`
+- `docker start restaurant-catalog`
 
 ### when app is running, try:
 - http://localhost:8080/servlet
