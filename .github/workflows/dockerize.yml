@@ -2,9 +2,8 @@ name: build with Maven and package as Docker image
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    branches:
+      - master
 
 jobs:
   build:
