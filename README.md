@@ -13,10 +13,10 @@
 ### now your app started
 
 ## How to start app (second option)
-- `docker build -t rso-restaurant-catalog .`
+- `docker build -t rso-restaurant-catalog .` (you can use multilayered Docker image `docker build -f ./Dockerfile_with_maven_build -t restaurant-catalog-multilayer .`)
 - `docker network create rso`
 - `docker run -d --name postgres-jdbc -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postgres -e POSTGRES_DB=restaurantcatalog -p 5432:5432 --network rso postgres:13`
-- `docker run -p 8080:8080 --network rso --name restaurant-catalog -e KUMULUZEE_DATASOURCES0_CONNECTIONURL=jdbc:postgresql://postgres-jdbc:5432/restaurantcatalog rso-restaurant-catalog`
+- `docker run -p 8080:8080 --network rso --name restaurant-catalog -e KUMULUZEE_DATASOURCES0_CONNECTIONURL=jdbc:postgresql://postgres-jdbc:5432/restaurantcatalog rso-restaurant-catalog` (or `docker run -p 8080:8080 --network rso --name restaurant-catalog -e KUMULUZEE_DATASOURCES0_CONNECTIONURL=jdbc:postgresql://postgres-jdbc:5432/restaurantcatalog rso-restaurant-multilayer`)
 
 
 ### to stop docker:
