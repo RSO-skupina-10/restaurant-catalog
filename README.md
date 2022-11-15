@@ -36,3 +36,6 @@
 
 ### Swagger:
 - http://localhost:8080/openapi
+
+## Docker Hub
+- https://hub.docker.com/r/aljkor/restaurant-catalog
