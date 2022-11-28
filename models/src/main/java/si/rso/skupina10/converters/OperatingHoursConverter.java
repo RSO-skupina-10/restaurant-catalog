@@ -11,6 +11,7 @@ public class OperatingHoursConverter {
         OperatingHoursDto dto = new OperatingHoursDto();
         //stack overflow
         //dto.setRestaurantDto(RestaurantConverter.toDto(entity.getRestaurant()));
+        dto.setId(entity.getOperatingHoursId());
 
         dto.setMondayStart(entity.getMondayStart());
         dto.setMondayEnd(entity.getMondayEnd());
@@ -44,6 +45,7 @@ public class OperatingHoursConverter {
         restaurantEntity.setRestaurantId(dto.getRestaurantId());
 
         entity.setRestaurant(restaurantEntity);
+        entity.setOperatingHoursId(dto.getId());
 
         //entity.setRestaurant(RestaurantConverter.toEntity(dto.getRestaurantDto()));
 

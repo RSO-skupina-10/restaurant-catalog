@@ -5,6 +5,8 @@ import java.time.LocalTime;
 
 public class OperatingHoursDto {
 
+    private Integer id;
+
     private LocalTime mondayStart;
     private LocalTime mondayEnd;
 
@@ -146,5 +148,13 @@ public class OperatingHoursDto {
 
     public void setRestaurantId(Integer restaurantId) {
         this.restaurantId = restaurantId;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

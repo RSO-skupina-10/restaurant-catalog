@@ -1,9 +1,11 @@
 package si.rso.skupina10.services;
 
 import si.rso.skupina10.converters.MealConverter;
+import si.rso.skupina10.converters.RestaurantConverter;
 import si.rso.skupina10.dtos.MealDto;
 import si.rso.skupina10.dtos.RestaurantDto;
 import si.rso.skupina10.entities.MealEntity;
+import si.rso.skupina10.entities.RestaurantEntity;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -75,7 +77,9 @@ public class MealBean {
     public MealDto addMeal(MealDto m) {
         try {
             RestaurantDto r = restaurantsBean.getRestaurant(m.getRestaurantId());
+            RestaurantEntity restaurantEntity = RestaurantConverter.toEntity(r);
             MealEntity entity = MealConverter.toEntity(m);
+            entity.setRestaurant(restaurantEntity);
             if(r != null) {
                 em.persist(entity);
                 em.flush();

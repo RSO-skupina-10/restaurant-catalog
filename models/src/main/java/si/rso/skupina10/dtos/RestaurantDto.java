@@ -4,6 +4,8 @@ import java.util.List;
 
 public class RestaurantDto {
 
+    private Integer id;
+
     private String name;
 
     private List<MealDto> listOfMealDtos;
@@ -32,5 +34,13 @@ public class RestaurantDto {
 
     public void setOperatingHoursDto(OperatingHoursDto operatingHoursDto) {
         this.operatingHoursDto = operatingHoursDto;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

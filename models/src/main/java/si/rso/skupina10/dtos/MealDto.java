@@ -4,6 +4,7 @@ import java.util.List;
 
 public class MealDto {
 
+    private Integer id;
     private String name;
     private Float price;
     private List<String> ingredients;
@@ -39,5 +40,13 @@ public class MealDto {
 
     public void setRestaurantId(Integer restaurantId) {
         this.restaurantId = restaurantId;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

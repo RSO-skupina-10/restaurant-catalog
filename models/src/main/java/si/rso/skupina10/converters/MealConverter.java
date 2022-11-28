@@ -8,6 +8,7 @@ public class MealConverter {
 
     public static MealDto toDto(MealEntity entity) {
         MealDto dto = new MealDto();
+        dto.setId(entity.getMealId());
         dto.setPrice(entity.getPrice());
         dto.setName(entity.getName());
         dto.setIngredients(entity.getIngredients());
@@ -22,6 +23,7 @@ public class MealConverter {
         RestaurantEntity r = new RestaurantEntity();
         r.setRestaurantId(dto.getRestaurantId());
         entity.setRestaurant(r);
+        entity.setMealId(dto.getId());
         entity.setIngredients(dto.getIngredients());
         entity.setPrice(dto.getPrice());
         entity.setName(dto.getName());

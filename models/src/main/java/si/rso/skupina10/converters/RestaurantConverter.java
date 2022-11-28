@@ -13,6 +13,8 @@ public class RestaurantConverter {
 
     public static RestaurantDto toDto(RestaurantEntity entity) {
         RestaurantDto dto = new RestaurantDto();
+        dto.setId(entity.getRestaurantId());
+
         dto.setName(entity.getName());
 
         List<MealEntity> lme = entity.getListOfMeals();
@@ -28,6 +30,7 @@ public class RestaurantConverter {
     public static RestaurantEntity toEntity(RestaurantDto dto) {
         RestaurantEntity entity = new RestaurantEntity();
 
+        entity.setRestaurantId(dto.getId());
         entity.setOperatingHours(OperatingHoursConverter.toEntity(dto.getOperatingHoursDto()));
         entity.setName(dto.getName());
 
