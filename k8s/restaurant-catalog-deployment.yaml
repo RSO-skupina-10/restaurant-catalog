@@ -13,11 +13,11 @@ spec:
         app: restaurant-catalog
     spec:
       containers:
-        - image: aljkor/restaurant-catalog:2022-11-15-17-28-20
+        - image: aljkor/restaurant-catalog:2022-11-29-22-26-25
           name: restaurant-catalog
           env:
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
-              value: jdbc:postgresql://mouse.db.elephantsql.com/pgwvihch
+              value: jdbc:postgresql://mouse.db.elephantsql.com:5432/pgwvihch
             - name: KUMULUZEE_DATASOURCES0_USERNAME
               value: pgwvihch
             - name: KUMULUZEE_DATASOURCES0_PASSWORD
