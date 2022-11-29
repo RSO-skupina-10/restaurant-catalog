@@ -17,7 +17,7 @@ spec:
           name: restaurant-catalog
           env:
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
-              value: jdbc:postgresql://mouse.db.elephantsql.com:5432/pgwvihch
+              value: jdbc:postgresql://mouse.db.elephantsql.com/pgwvihch
             - name: KUMULUZEE_DATASOURCES0_USERNAME
               value: pgwvihch
             - name: KUMULUZEE_DATASOURCES0_PASSWORD

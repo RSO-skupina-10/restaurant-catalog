@@ -39,3 +39,18 @@
 
 ## Docker Hub
 - https://hub.docker.com/r/aljkor/restaurant-catalog
+
+## Azure & Kubernetes
+- `az login`
+- `az account set --subscription xxxxxxxxxxxx`
+- `az aks get-credentials --resource-group xxxxxx --name xxxx`
+- `kubectl version`
+- `kubectl get nodes`
+- `kubectl create -f k8s/restaurant-catalog-deployment.yaml`
+- `kubectl create secret generic pg-pass --from-literal=KUMULUZEE_DATASOURCES0_PASSWORD='xxxxxx'`
+- `kubectl apply -f k8s/restaurant-catalog-deployment.yaml`
+- `kubectl get services`
+- `kubectl get deployments`
+- `kubectl get pods`
+- `kubectl logs restaurant-catalog-deployment-xxxxxxxxxx`
+- try http://rsorestaurants-dns-cddf9c01.hcp.eastus.azmk8s.io/v1/restaurants
