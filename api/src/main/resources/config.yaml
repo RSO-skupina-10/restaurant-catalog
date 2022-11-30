@@ -12,4 +12,5 @@ kumuluzee:
       connection-url: jdbc:postgresql://localhost:5432/restaurantcatalog
       username: postgres
       password: postgres
-      max-pool-size: 2
+      pool:
+        max-size: 3
