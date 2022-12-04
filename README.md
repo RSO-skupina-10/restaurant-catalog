@@ -53,4 +53,4 @@
 - `kubectl get deployments`
 - `kubectl get pods`
 - `kubectl logs restaurant-catalog-deployment-xxxxxxxxxx`
-- try http://rsorestaurants-dns-cddf9c01.hcp.eastus.azmk8s.io/v1/restaurants
+- try http://20.85.145.170:8080/v1/restaurants
