@@ -14,3 +14,5 @@ kumuluzee:
       password: postgres
       pool:
         max-size: 3
+rest-properties:
+  maintenance-mode: false
