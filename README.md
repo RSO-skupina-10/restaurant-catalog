@@ -69,6 +69,10 @@
 ## Configuration
 
 ### KumuluzEE Config
-
-If we set `maintenance-mode: true` every request gets response `{"message" : "Maintenance mode enabled"}`. Because of
+#### Consul
+- https://developer.hashicorp.com/consul/downloads
+- `consul agent -dev`
+- check out http://localhost:8500/
+- `consul kv put environments/dev/services/restaurant-catalog/1.0.0/config/rest-properties/maintenance-mode false` or `consul kv put environments/dev/services/restaurant-catalog/1.0.0/config/rest-properties/maintenance-mode true`
+- If we set `maintenance-mode: true` every request gets response `{"message" : "Maintenance mode enabled"}`. Because of
 filter method called before a request has been dispatched to a resource.
