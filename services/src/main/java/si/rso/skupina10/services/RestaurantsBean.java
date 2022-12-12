@@ -17,6 +17,7 @@ import javax.ws.rs.core.UriInfo;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 
 @ApplicationScoped
 public class RestaurantsBean {
@@ -38,7 +39,7 @@ public class RestaurantsBean {
         log.info("Destroy " + RestaurantsBean.class.getSimpleName());
     }
 
-
+    @Timed
     public List<RestaurantDto> getRestaurants() {
         try {
             Query q = em.createNamedQuery("Restaurant.getAll");

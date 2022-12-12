@@ -14,5 +14,18 @@ kumuluzee:
       password: postgres
       pool:
         max-size: 3
+  health:
+    servlet:
+      mapping: /health/live
+      enabled: true
+    checks:
+      data-source-health-check:
+        type: liveness
+        jndi-name: jdbc/RestaurantCatalogDS
+    metrics:
+      web-instrumentation:
+        - name: restaurants-endpoint
+          url-pattern: /v1/restaurants/*
 rest-properties:
   maintenance-mode: false
+  broken: false
