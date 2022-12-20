@@ -22,10 +22,11 @@ kumuluzee:
       data-source-health-check:
         type: liveness
         jndi-name: jdbc/RestaurantCatalogDS
-    metrics:
-      web-instrumentation:
-        - name: restaurants-endpoint
-          url-pattern: /v1/restaurants/*
+  metrics:
+    web-instrumentation:
+      - name: metrics-endpoint
+        url-pattern: /restaurants/*
+        status-codes: "200,201,204,400,404,500"
 rest-properties:
   maintenance-mode: false
   broken: false

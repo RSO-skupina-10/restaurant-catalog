@@ -1,5 +1,6 @@
 package si.rso.skupina10.api.v1.resources;
 
+import org.eclipse.microprofile.metrics.annotation.Metered;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
@@ -44,6 +45,7 @@ public class RestaurantsResource {
                     //,headers = {@Header(name = "X-Total-Count", description = "Number of objects in list")}
             )})
     @GET
+    @Metered(name = "restaurant_get_all_meter")
     public Response getRestaurants() {
         List<RestaurantDto> restaurants = restaurantsBean.getRestaurants(uriInfo);
 
@@ -58,6 +60,7 @@ public class RestaurantsResource {
                     content = @Content(schema = @Schema(implementation = RestaurantDto.class))
             ), @APIResponse(responseCode = "404", description = "Restaurant not found")
     })
+    @Metered(name = "restaurant_get_by_id_meter")
     public Response getRestaurantById(@PathParam("id") Integer id) {
         RestaurantDto restaurantDto = restaurantsBean.getRestaurant(id);
         if (restaurantDto != null) {
@@ -75,6 +78,7 @@ public class RestaurantsResource {
                     content = @Content(schema = @Schema(implementation = MealDto.class, type = SchemaType.ARRAY))
             ), @APIResponse(responseCode = "404", description = "Not found")
     })
+    @Metered(name = "meals_get_all_by_restaurant_id_meter")
     public Response getRestaurantMeals(@PathParam("id") Integer id) {
         RestaurantDto restaurantDto = restaurantsBean.getRestaurant(id);
         if (restaurantDto != null) {
@@ -91,6 +95,7 @@ public class RestaurantsResource {
             @APIResponse(responseCode = "201", description = "New restaurant added", content = @Content(schema = @Schema(implementation = RestaurantDto.class))),
             @APIResponse(responseCode = "400", description = "Error adding new restaurant")
     })
+    @Metered(name = "restaurant_add_new_meter")
     public Response addNewRestaurant(@RequestBody(
             description = "Restaurant DTO object",
             required = true,
@@ -112,6 +117,7 @@ public class RestaurantsResource {
             @APIResponse(responseCode = "204", description = "Restaurant deleted"),
             @APIResponse(responseCode = "400", description = "Error deleting restaurant")
     })
+    @Metered(name = "restaurant_delete_meter")
     public Response deleteRestaurant(@PathParam("id") Integer id) {
         boolean deleted = restaurantsBean.removeRestaurant(id);
         if(deleted) {

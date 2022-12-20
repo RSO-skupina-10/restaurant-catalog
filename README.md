@@ -79,3 +79,6 @@ filter method called before a request has been dispatched to a resource.
 
 ### Health check
 - http://localhost:8080/health/live
+
+### Metrics
+- http://localhost:8080/metrics
