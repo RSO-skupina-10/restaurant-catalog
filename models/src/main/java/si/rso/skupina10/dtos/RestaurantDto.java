@@ -43,4 +43,8 @@ public class RestaurantDto {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public String toString() {
+        return "Restaurant id: " + id + ", name: " + name;
+    }
 }

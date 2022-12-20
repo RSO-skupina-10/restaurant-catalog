@@ -21,6 +21,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.util.List;
 import java.util.logging.Logger;
+
 import com.kumuluz.ee.logs.cdi.Log;
 
 
@@ -49,8 +50,10 @@ public class RestaurantsResource {
     @GET
     @Metered(name = "restaurant_get_all_meter")
     public Response getRestaurants() {
+        log.info("getRestaurants called.");
         List<RestaurantDto> restaurants = restaurantsBean.getRestaurants(uriInfo);
 
+        log.info("getRestaurants output: " + restaurants.toString());
         return Response.status(Response.Status.OK).entity(restaurants).build();
     }
 
@@ -64,12 +67,13 @@ public class RestaurantsResource {
     })
     @Metered(name = "restaurant_get_by_id_meter")
     public Response getRestaurantById(@PathParam("id") Integer id) {
+        log.info("getRestaurantById called with id " + id);
         RestaurantDto restaurantDto = restaurantsBean.getRestaurant(id);
         if (restaurantDto != null) {
-            log.info("Info log getRestaurantById was successful, id: "+id);
+            log.info("getRestaurantById was successful " + restaurantDto);
             return Response.ok(restaurantDto).build();
         } else {
-            log.severe("Did not find restaurant with this id.");
+            log.severe("Did not find restaurant with this id (" + id + ").");
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
@@ -84,11 +88,13 @@ public class RestaurantsResource {
     })
     @Metered(name = "meals_get_all_by_restaurant_id_meter")
     public Response getRestaurantMeals(@PathParam("id") Integer id) {
+        log.info("getRestaurantMeals called with id " + id);
         RestaurantDto restaurantDto = restaurantsBean.getRestaurant(id);
         if (restaurantDto != null) {
             List<MealDto> mealDtos = restaurantDto.getListOfMealDtos();
             return Response.ok(mealDtos).build();
         } else {
+            log.severe("Did not find restaurant meals with this id (" + id + ").");
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
@@ -107,10 +113,13 @@ public class RestaurantsResource {
                     schema = @Schema(implementation = RestaurantDto.class)
             )
     ) RestaurantDto restaurantDto) {
+        log.info("addNewRestaurant " + restaurantDto);
         RestaurantDto newRestaurant = restaurantsBean.addRestaurant(restaurantDto);
         if (newRestaurant == null) {
+            log.severe("Could not add new restaurant.");
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
+        log.info("Restaurant created.");
         return Response.status(Response.Status.CREATED).build();
     }
 
@@ -123,10 +132,13 @@ public class RestaurantsResource {
     })
     @Metered(name = "restaurant_delete_meter")
     public Response deleteRestaurant(@PathParam("id") Integer id) {
+        log.info("deleteRestaurant called with id (" + id + ")");
         boolean deleted = restaurantsBean.removeRestaurant(id);
-        if(deleted) {
+        if (deleted) {
+            log.info("Restaurant deleted id (" + id + ")");
             return Response.status(Response.Status.NO_CONTENT).build();
         }
+        log.severe("Could not delete restaurant with id (" + id + ")");
         return Response.status(Response.Status.BAD_REQUEST).build();
     }
 }
