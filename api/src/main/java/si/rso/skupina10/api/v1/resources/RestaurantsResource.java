@@ -21,12 +21,14 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.util.List;
 import java.util.logging.Logger;
+import com.kumuluz.ee.logs.cdi.Log;
 
 
 @ApplicationScoped
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @Path("/restaurants")
+@Log
 public class RestaurantsResource {
 
     private Logger log = Logger.getLogger(RestaurantsResource.class.getName());
@@ -64,8 +66,10 @@ public class RestaurantsResource {
     public Response getRestaurantById(@PathParam("id") Integer id) {
         RestaurantDto restaurantDto = restaurantsBean.getRestaurant(id);
         if (restaurantDto != null) {
+            log.info("Info log getRestaurantById was successful, id: "+id);
             return Response.ok(restaurantDto).build();
         } else {
+            log.severe("Did not find restaurant with this id.");
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
