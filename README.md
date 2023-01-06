@@ -93,7 +93,7 @@ filter method called before a request has been dispatched to a resource.
   }`
 - `query MyQuery {
   restaurants(
-  filter: {fields: {field: "name", op: EQ}}
+  filter: {fields: {field: "id", op: GT, type: INTEGER, value: "1"}}
   page: {limit: 5, offset: 0}
   sort: {fields: {field: "name", order: ASC}}
   ) {
