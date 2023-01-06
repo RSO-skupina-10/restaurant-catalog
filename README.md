@@ -82,3 +82,24 @@ filter method called before a request has been dispatched to a resource.
 
 ### Metrics
 - http://localhost:8080/metrics
+
+### GraphQL
+- http://localhost:8080/graphiql
+- `query MyQuery {
+  restaurant(id: 1) {
+  id
+  name
+  }
+  }`
+- `query MyQuery {
+  restaurants(
+  filter: {fields: {field: "name", op: EQ}}
+  page: {limit: 5, offset: 0}
+  sort: {fields: {field: "name", order: ASC}}
+  ) {
+  result {
+  id
+  name
+  }
+  }
+  }`
