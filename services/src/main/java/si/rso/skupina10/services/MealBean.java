@@ -80,15 +80,13 @@ public class MealBean {
             RestaurantEntity restaurantEntity = RestaurantConverter.toEntity(r);
             MealEntity entity = MealConverter.toEntity(m);
             entity.setRestaurant(restaurantEntity);
-            if(r != null) {
-                em.persist(entity);
-                em.flush();
-                return MealConverter.toDto(entity);
-            } else {
-                log.info("Cannot add meal without a restaurant.");
-                return null;
-            }
+            beginTx();
+            em.persist(entity);
+            em.flush();
+            commitTx();
+            return MealConverter.toDto(entity);
         } catch (Exception e) {
+            rollbackTx();
             log.severe("Error addMeal: " + e);
             return null;
         }
@@ -99,9 +97,16 @@ public class MealBean {
         MealEntity meal = em.find(MealEntity.class, mealId);
 
         if(meal!=null){
-            em.remove(meal);
-            em.flush();
-            return true;
+            try{
+                beginTx();
+                em.remove(meal);
+                em.flush();
+                commitTx();
+                return true;
+            } catch (Exception e){
+                rollbackTx();
+            }
+
         }
         return false;
     }
@@ -109,5 +114,23 @@ public class MealBean {
     @Transactional
     public MealEntity updateMeal(Integer mealId){
         return null;
+    }
+
+    private void beginTx() {
+        if (!em.getTransaction().isActive()) {
+            em.getTransaction().begin();
+        }
+    }
+
+    private void commitTx() {
+        if (em.getTransaction().isActive()) {
+            em.getTransaction().commit();
+        }
+    }
+
+    private void rollbackTx() {
+        if (em.getTransaction().isActive()) {
+            em.getTransaction().rollback();
+        }
     }
 }

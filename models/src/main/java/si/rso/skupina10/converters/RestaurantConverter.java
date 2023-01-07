@@ -23,6 +23,9 @@ public class RestaurantConverter {
         OperatingHoursEntity ohe = entity.getOperatingHours();
 
         dto.setOperatingHoursDto(OperatingHoursConverter.toDto(ohe));
+        dto.setDescription(entity.getDescription());
+        dto.setLat(entity.getLat());
+        dto.setLng(entity.getLng());
 
         return dto;
     }
@@ -33,6 +36,9 @@ public class RestaurantConverter {
         entity.setRestaurantId(dto.getId());
         entity.setOperatingHours(OperatingHoursConverter.toEntity(dto.getOperatingHoursDto()));
         entity.setName(dto.getName());
+        entity.setLat(dto.getLat());
+        entity.setLng(dto.getLng());
+        entity.setDescription(dto.getDescription());
 
         List<MealDto> mealDtos = dto.getListOfMealDtos();
         entity.setListOfMeals(mealDtos.stream().map(MealConverter::toEntity).collect(Collectors.toList()));

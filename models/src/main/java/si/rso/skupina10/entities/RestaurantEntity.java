@@ -26,6 +26,9 @@ public class RestaurantEntity {
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
     private List<MealEntity> listOfMeals;
 
+    private String description;
+    private Float lat;
+    private Float lng;
 
     public Integer getRestaurantId() {
         return restaurantId;
@@ -58,4 +61,12 @@ public class RestaurantEntity {
     public void setOperatingHours(OperatingHoursEntity operatingHours) {
         this.operatingHours = operatingHours;
     }
+
+    public String getDescription(){return description;}
+    public void setDescription(String description){this.description = description;}
+    public Float getLat(){return lat;}
+    public void setLat(Float lat){this.lat = lat;}
+
+    public Float getLng(){return lng;}
+    public void setLng(Float lng){this.lng = lng;}
 }

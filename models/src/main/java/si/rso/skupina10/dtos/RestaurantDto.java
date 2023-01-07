@@ -12,6 +12,10 @@ public class RestaurantDto {
 
     private OperatingHoursDto operatingHoursDto;
 
+    private String description;
+    private Float lat;
+    private Float lng;
+
     public String getName() {
         return name;
     }
@@ -43,6 +47,14 @@ public class RestaurantDto {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public String getDescription(){return description;}
+    public void setDescription(String description){this.description = description;}
+    public Float getLat(){return lat;}
+    public void setLat(Float lat){this.lat = lat;}
+
+    public Float getLng(){return lng;}
+    public void setLng(Float lng){this.lng = lng;}
 
     public String toString() {
         return "Restaurant id: " + id + ", name: " + name;

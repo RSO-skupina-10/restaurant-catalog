@@ -80,11 +80,14 @@ public class RestaurantsBean {
                 return null;
             }
             RestaurantEntity entity = RestaurantConverter.toEntity(r);
+            beginTx();
             em.persist(entity);
             em.flush();
+            commitTx();
             log.info("Restaurant " + name + " was added.");
             return RestaurantConverter.toDto(entity);
         } catch (Exception e) {
+            rollbackTx();
             log.severe("Error at addRestaurant: " + e);
             return null;
         }
@@ -95,11 +98,33 @@ public class RestaurantsBean {
         RestaurantEntity restaurant = em.find(RestaurantEntity.class, restaurantId);
 
         if (restaurant != null) {
-            //TODO see if we need to remove its meals (cascade = CascadeType.ALL)
-            em.remove(restaurant);
-            em.flush();
-            return true;
+            try{
+                beginTx();
+                em.remove(restaurant);
+                em.flush();
+                commitTx();
+                return true;
+            } catch(Exception e){
+                rollbackTx();
+            }
         }
         return false;
+    }
+    private void beginTx() {
+        if (!em.getTransaction().isActive()) {
+            em.getTransaction().begin();
+        }
+    }
+
+    private void commitTx() {
+        if (em.getTransaction().isActive()) {
+            em.getTransaction().commit();
+        }
+    }
+
+    private void rollbackTx() {
+        if (em.getTransaction().isActive()) {
+            em.getTransaction().rollback();
+        }
     }
 }
