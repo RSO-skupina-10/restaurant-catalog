@@ -83,3 +83,25 @@ filter method called before a request has been dispatched to a resource.
 
 ### Metrics
 - http://localhost:8080/metrics
+- central storage https://kibana.logit.io/s/cd3c8e66-6473-4487-ba45-cf3a94247270/app/discover
+
+### GraphQL
+- http://localhost:8080/graphiql
+- `query MyQuery {
+  restaurant(id: 1) {
+  id
+  name
+  }
+  }`
+- `query MyQuery {
+  restaurants(
+  filter: {fields: {field: "id", op: GT, type: INTEGER, value: "1"}}
+  page: {limit: 5, offset: 0}
+  sort: {fields: {field: "name", order: ASC}}
+  ) {
+  result {
+  id
+  name
+  }
+  }
+  }`
